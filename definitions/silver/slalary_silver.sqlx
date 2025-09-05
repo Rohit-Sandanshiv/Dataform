@@ -1,0 +1,11 @@
+config {
+    "type": "table",
+    "schema" : "silver"
+}
+
+SELECT 
+    LEVEL, 
+    COUNT(*) AS EMPLOYEE_COUNT, 
+    AVG(SALARY) AS AVG_SALARY
+    FROM ${ref("salary_raw")}
+GROUP BY LEVEL
