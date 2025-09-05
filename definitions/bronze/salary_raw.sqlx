@@ -1,0 +1,13 @@
+config {
+    type:"table",
+    schema:"bronze"
+}
+
+select *,
+CASE 
+    WHEN YearsExperience BETWEEN 0 AND 2 THEN 'LEVEL1'
+    WHEN YearsExperience BETWEEN 2 AND 3 THEN 'LEVEL2'
+    WHEN YearsExperience BETWEEN 3 AND 4 THEN 'LEVEL3'
+    WHEN YearsExperience BETWEEN 4 AND 5 THEN 'LEVEL4' 
+END AS LEVEL
+ from `my-project-437514.bronze.salary`
