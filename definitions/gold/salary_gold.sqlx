@@ -3,4 +3,4 @@ config {
     schema : "gold"
 }
 
-SELECT * FROM ${ref("salary_silver")} WHERE AVG_SALARY='115K'
+SELECT * FROM ${ref("salary_silver")} ORDER BY EMPLOYEE_COUNT DESC LIMIT 1
