@@ -1,0 +1,14 @@
+config {
+    type: "table",
+    schema : "gold"
+}
+
+WITH parsed AS (
+  SELECT 
+    LEVEL,
+    CAST(REPLACE(AVG_SALARY, 'K', '') AS INT64) * 1000 AS avg_salary_num
+  FROM ${ref("salary_raw")}
+)
+SELECT LEVEL
+FROM parsed
+WHERE avg_salary_num = (SELECT MAX(avg_salary_num) FROM parsed)
