@@ -1,0 +1,41 @@
+main:
+  steps:
+    - callFunction:
+        call: http.post
+        args:
+          url: https://end-end-pipeline-1051580364007.europe-west1.run.app
+          body:
+            bucket: "bucket452001"
+            file_name: "Salary_Data.csv"
+            dataset_id: "bronze"
+            table_id: "salary"
+
+    - createCompilationResult:
+        call: http.post
+        args:
+          url: https://dataform.googleapis.com/v1beta1/projects/my-project-437514/locations/africa-south1/repositories/central-data-lake-dataform/compilationResults
+          auth:
+            type: OAuth2
+            scopes:
+              - https://www.googleapis.com/auth/cloud-platform
+          body:
+            gitCommitish: main
+        result: createCompilationResultResponse
+
+    - runDataformPipeline:
+        call: http.post
+        args:
+          url: https://dataform.googleapis.com/v1beta1/projects/my-project-437514/locations/africa-south1/repositories/central-data-lake-dataform/workflowInvocations
+          auth:
+            type: OAuth2
+            scopes:
+              - https://www.googleapis.com/auth/cloud-platform
+          body:
+            compilationResult: ${createCompilationResultResponse.body.name}
+            invocationConfig:
+              transitiveDependenciesIncluded: true
+              transitiveDependentsIncluded: true
+        result: dataformResponse
+
+    - returnStep:
+        return: ${dataformResponse.body}
