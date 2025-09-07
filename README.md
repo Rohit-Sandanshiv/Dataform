@@ -24,11 +24,12 @@ The pipeline follows the **Bronze → Silver → Gold** architecture and consist
 │                        # 1. Calls Cloud Function for ingestion
 │                        # 2. Compiles & runs Dataform pipeline
 │
-│── definitions/     # SQLX scripts for transformations
-│   ├── bronze.sqlx  # Bronze layer (raw ingestion + leveling)
-│   ├── silver.sqlx  # Silver layer (aggregations, avg salary)
-│   └── gold.sqlx    # Gold layer (final analytics with stability metric)
-│── workflow_settings.yaml    # Dataform project config
+├── Dataform_code/
+│   ├── definitions/     # SQLX scripts for transformations
+│   │   ├── bronze.sqlx  # Bronze layer (raw ingestion + leveling)
+│   │   ├── silver.sqlx  # Silver layer (aggregations, avg salary)
+│   │   └── gold.sqlx    # Gold layer (final analytics with stability metric)
+│   └── workflow_settings.yaml    # Dataform project config
 │
 └── README.md            # Project documentation
 ```
